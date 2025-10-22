@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Happy Birthday Cutie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&family=Pacifico&display=swap"
+    rel="stylesheet">
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: #0b1020;
+      color: #fff;
+      font-family: Montserrat, system-ui, Arial;
+    }
+
+    .name-overlay {
+
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      gap: 20px;
+    }
+
+    #nameInput {
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 18px;
+      width: 220px;
+      text-align: center;
+    }
+
+    #submitName {
+      padding: 12px 28px;
+      border-radius: 12px;
+      border: none;
+      background: #ff66b2;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .reel-root {
+      width: 100%;
+      height: 100vh;
+      max-width: 1080px;
+      margin: 0 auto;
+      aspect-ratio: 9/16;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, #0f1724 0%, #0b0f1a 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+    }
+
+    .bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: blur(4px) saturate(1.1) contrast(.95) brightness(.55);
+      transform: scale(1.06);
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .25), rgba(0, 0, 0, .45));
+    }
+
+    .card {
+      position: relative;
+      z-index: 10;
+      width: 92%;
+      height: 94%;
+      border-radius: 28px;
+      padding: 28px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .02));
+      backdrop-filter: blur(6px);
+    }
+
+    .to {
+      font-family: Pacifico, Montserrat;
+      font-size: 44px;
+      letter-spacing: 1px;
+      text-shadow: 0 8px 30px rgba(255, 0, 120, .08);
+      transform: translateY(-6px);
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: rgba(255, 255, 255, .75);
+    }
+
+    .portrait {
+      display: none;
+    }
+
+    .portrait img {
+      display: none;
+    }
+
+    .portrait .caption {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      font-size: 13px;
+      background: linear-gradient(90deg, rgba(0, 0, 0, .35), rgba(255, 255, 255, .02));
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .messages {
+      width: 100%;
+      height: 20%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+    }
+
+    .typewriter {
+      font-size: 20px;
+      line-height: 1.2;
+      max-width: 92%;
+      text-align: center;
+    }
+
+    .typewriter .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 22px;
+      background: linear-gradient(180deg, #fff, #ff66b2);
+      margin-left: 6px;
+      vertical-align: middle;
+      animation: blink 900ms steps(2) infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0
+      }
+    }
+
+    .floating-icons {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .heart {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      transform: translate(-50%, -50%);
+      opacity: .95;
+    }
+
+    .footer {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255, 255, 255, .01));
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .credits {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .6);
+    }
+
+    .progress {
+      height: 6px;
+      width: 86%;
+      background: rgba(255, 255, 255, .06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress>i {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff66b2, #ffd166);
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="name-overlay" id="nameOverlay">
+    <label for="nameInput" style="color:white;font-size:20px;margin-bottom:10px;">Enter Name:</label>
+    <input type="text" id="nameInput" placeholder="Type here...">
+    <button id="submitName">Start</button>
+  </div>
+
+  <div class="reel-root" id="reel">
+    <div class="bg" id="bg"></div>
+    <div class="overlay"></div>
+    <div class="floating-icons" id="floatingIcons"></div>
+    <div class="card enter-up">
+      <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:6px">
+        <div class="to" id="toText">Happy Birthday 🎂</div>
+        <div class="subtitle">A little surprise — recorded just for you ✨</div>
+      </div>
+      <div class="portrait" id="portrait">
+        <img id="portraitImg" src="https://i.pinimg.com/736x/88/74/24/887424adfbf513fa753ca1eb3eb4d3a6.jpg" alt="cover">
+        <div class="caption" id="caption">With all my heart</div>
+      </div>
+      <div class="messages">
+        <div class="typewriter" id="messageText">I'm thinking...<span class="cursor"></span></div>
+      </div>
+      <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:8px">
+        <div class="progress"><i id="progressFill"></i></div>
+        <div class="footer">
+          <div class="credits">Recorded with love❤️ by Shivmangal Singh</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop></audio>
+
+  <script>
+    const nameOverlay = document.getElementById('nameOverlay');
+    const nameInput = document.getElementById('nameInput');
+    const submitBtn = document.getElementById('submitName');
+    const toText = document.getElementById('toText');
+    const caption = document.getElementById('caption');
+    const reel = document.getElementById('reel');
+
+    submitBtn.addEventListener('click', () => {
+      const name = nameInput.value.trim();
+      if (name.length > 0) {
+        toText.textContent = `Happy Birthday, ${name} 🎂`;
+        caption.textContent = `For ${name}, with all my heart`;
+        nameOverlay.style.display = 'none';
+        reel.style.display = 'flex';
+        runMessages();
+        setTimeout(() => spawnRandomHearts(), 400);
+      }
+    });
+
+    const messages = [
+      "Yo bro! 🎉 Another year older — still the same legend with zero sense 😎",
+      "Can’t believe how far we’ve come, from bunking classes to building dreams.",
+      "We’ve laughed so hard we almost stopped breathing 😂 and fought like idiots too — but that’s what brothers do!",
+      "You’re that one person I never have to fake anything with. Real one since day one. 🤜🤛",
+      "Remember those late-night talks about life, girls, and goals? Yeah, those are my favorite memories 💭",
+      "You may not say it much, but I know you’ve got a big heart — always there when it matters ❤️",
+      "Keep that same fire, bro — the world’s not ready for what you’re becoming 🔥",
+      "No matter how crazy life gets, never stop smiling… that’s your real flex 💪",
+      "I’m proud of the man you’re turning into — loyal, fearless, and unstoppable.",
+      "Happy Birthday, my brother — not by blood, but by bond. 🖤",
+      "More success, more peace, more memories… let’s keep writing this story together. 🎂🚀",
+      "Recorded with love — by Shivmangal Singh 💫"
+    ];
+
+    const TYPE_SPEED = 30, HOLD_AFTER = 1500, BETWEEN = 450, HEART_COUNT = 18;
+    const messageText = document.getElementById('messageText');
+    const progressFill = document.getElementById('progressFill');
+    const floatingIcons = document.getElementById('floatingIcons');
+    const bgMusic = document.getElementById('bgMusic');
+    const skipBtn = document.getElementById('skipBtn');
+
+    let current = 0, isSkipping = false;
+
+    function typeOut(text, speed = TYPE_SPEED) {
+      return new Promise(resolve => {
+        messageText.querySelector('.cursor').style.display = 'inline-block';
+        messageText.childNodes[0] && (messageText.childNodes[0].nodeValue = '');
+        let i = 0;
+        function step() {
+          if (isSkipping) { messageText.childNodes[0].nodeValue = text; resolve(); return; }
+          if (i < text.length) { messageText.childNodes[0].nodeValue += text[i++]; updateProgress(); setTimeout(step, speed); }
+          else resolve();
+        }
+        step();
+      });
+    }
+
+    function updateProgress() {
+      const pct = Math.min(100, Math.round((messageText.childNodes[0].nodeValue.length / Math.max(1, messages[current].length)) * 100));
+      progressFill.style.width = pct + '%';
+    }
+
+    async function runMessages() {
+      if (bgMusic.src) try { await bgMusic.play(); } catch (e) { }
+      for (current = 0; current < messages.length; current++) {
+        isSkipping = false;
+        await typeOut(messages[current]);
+        await wait(HOLD_AFTER);
+        await fadeSmallHeart();
+        await wait(BETWEEN);
+        progressFill.style.width = '0%';
+      }
+      showHeartsBurst();
+      await wait(1200);
+      messageText.childNodes[0].nodeValue = "Make a wish — I'm right here. ✨";
+      progressFill.style.width = '100%';
+    }
+
+    function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+    skipBtn.addEventListener('click', () => { isSkipping = true });
+
+    function makeHeart(x, y, scale = 1, delay = 0) {
+      const el = document.createElement('div');
+      el.className = 'heart pulse';
+      el.style.left = x + '%';
+      el.style.top = y + '%';
+      el.style.opacity = Math.random() * 0.6 + 0.4;
+      el.style.width = Math.round(26 * scale) + 'px';
+      el.style.height = Math.round(26 * scale) + 'px';
+      el.style.transition = `transform 2.4s ease-out ${delay}ms, opacity 2.2s ${delay}ms`;
+      el.innerHTML = `<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-7-4.4-9-7.2C-1 8 4 4 7 6c1.5 1 2 2 5 5 3-3 3.5-4 5-5 3-2 8 2-4 7.8C19 16.6 12 21 12 21z" fill="url(#g)"/><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff66b2"/><stop offset="1" stop-color="#ffd166"/></linearGradient></defs></svg>`;
+      floatingIcons.appendChild(el);
+      setTimeout(() => { el.style.transform = `translateY(-90px) scale(1.35)`; el.style.opacity = '0'; }, 50 + delay);
+      setTimeout(() => el.remove(), 2600 + delay);
+    }
+
+    function fadeSmallHeart() { return new Promise(res => { makeHeart(72, 28, 1.1, 0); makeHeart(25, 40, 0.9, 120); setTimeout(res, 500); }); }
+    function showHeartsBurst() { for (let i = 0; i < 20; i++) { const left = 10 + Math.random() * 80; const top = 60 + Math.random() * 30; makeHeart(left, top, 0.9 + Math.random() * 1.1, i * 40); } }
+    function spawnRandomHearts() { } for (let i = 0; i < HEART_COUNT; i++) { setTimeout(() => { const left = Math.random() * 95; const top = 25 + Math.random() * 60; const scale = 0.6 + Math.random() * 1.2; makeHeart(left, top, scale, 0); }, i * 120); } 
+  </script>
+</body>
+
+</html>
